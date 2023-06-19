@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'faysal@surovigroup.net',
             'password' => bcrypt('password'),
         ]);
+
+        $this->call(RegionSeeder::class);
     }
 }
