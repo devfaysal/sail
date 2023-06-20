@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Area;
 use App\Models\Region;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -56,6 +57,9 @@ class RegionSeeder extends Seeder
 
         foreach($regions as $region){
             Region::create($region);
+        }
+        foreach($areas as $area){
+            Area::create($area);
         }
     }
 }

@@ -2,12 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TerritoryResource\Pages;
-use App\Filament\Resources\TerritoryResource\RelationManagers;
-use App\Filament\Resources\TerritoryResource\RelationManagers\CustomersRelationManager;
-use App\Models\Territory;
+use App\Filament\Resources\AreaResource\Pages;
+use App\Filament\Resources\AreaResource\RelationManagers;
+use App\Models\Area;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -17,9 +15,9 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TerritoryResource extends Resource
+class AreaResource extends Resource
 {
-    protected static ?string $model = Territory::class;
+    protected static ?string $model = Area::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -27,7 +25,6 @@ class TerritoryResource extends Resource
     {
         return $form
             ->schema([
-                Select::make('region_id')->relationship('region', 'name'),
                 TextInput::make('name'),
                 TextInput::make('field_force'),
                 TextInput::make('designation')
@@ -39,7 +36,6 @@ class TerritoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name'),
-                TextColumn::make('region.name'),
                 TextColumn::make('field_force'),
                 TextColumn::make('designation')
             ])
@@ -57,16 +53,16 @@ class TerritoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            CustomersRelationManager::class
+            //
         ];
     }
     
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTerritories::route('/'),
-            'create' => Pages\CreateTerritory::route('/create'),
-            'edit' => Pages\EditTerritory::route('/{record}/edit'),
+            'index' => Pages\ListAreas::route('/'),
+            'create' => Pages\CreateArea::route('/create'),
+            'edit' => Pages\EditArea::route('/{record}/edit'),
         ];
     }    
 }

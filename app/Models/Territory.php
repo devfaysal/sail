@@ -15,4 +15,9 @@ class Territory extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 }
