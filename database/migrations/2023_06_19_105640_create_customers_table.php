@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('proprietor');
             $table->string('mobile');
-            $table->decimal('credit_limit');
+            $table->decimal('credit_limit',12,2);
             $table->timestamps();
         });
     }
