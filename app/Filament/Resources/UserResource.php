@@ -2,37 +2,41 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TerritoryResource\Pages;
-use App\Filament\Resources\TerritoryResource\RelationManagers;
-use App\Filament\Resources\TerritoryResource\RelationManagers\CustomersRelationManager;
-use App\Models\Territory;
+use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\RelationManagers;
+use App\Models\User;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
-class TerritoryResource extends Resource
+class UserResource extends Resource
 {
-    protected static ?string $model = Territory::class;
+    protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 9;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Select::make('region_id')->relationship('region', 'name'),
                 TextInput::make('name'),
-                TextInput::make('field_force'),
-                TextInput::make('designation')
+                TextInput::make('email')->email(),
+                TextInput::make('password')
+                    ->password()
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create'),
             ]);
     }
 
@@ -41,9 +45,7 @@ class TerritoryResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name'),
-                TextColumn::make('region.name'),
-                TextColumn::make('field_force'),
-                TextColumn::make('designation')
+                TextColumn::make('email'),
             ])
             ->filters([
                 //
@@ -59,16 +61,16 @@ class TerritoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            CustomersRelationManager::class
+            //
         ];
     }
     
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTerritories::route('/'),
-            'create' => Pages\CreateTerritory::route('/create'),
-            'edit' => Pages\EditTerritory::route('/{record}/edit'),
+            'index' => Pages\ListUsers::route('/'),
+            'create' => Pages\CreateUser::route('/create'),
+            'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }    
 }

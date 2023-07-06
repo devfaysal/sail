@@ -10,6 +10,11 @@ class EditRegion extends EditRecord
 {
     protected static string $resource = RegionResource::class;
 
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
+
     protected function getActions(): array
     {
         return [

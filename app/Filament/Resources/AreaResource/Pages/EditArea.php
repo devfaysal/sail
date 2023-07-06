@@ -10,6 +10,11 @@ class EditArea extends EditRecord
 {
     protected static string $resource = AreaResource::class;
 
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('index');
+    }
+
     protected function getActions(): array
     {
         return [
