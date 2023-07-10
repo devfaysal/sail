@@ -21,7 +21,7 @@ class TerritoryResource extends Resource
 {
     protected static ?string $model = Territory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-location-marker';
 
     protected static ?int $navigationSort = 3;
 
