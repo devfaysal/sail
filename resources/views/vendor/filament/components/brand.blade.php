@@ -1,0 +1,1 @@
+<img src="{{ asset('/logo/surovi_agro_logo.png') }}" alt="Logo" class="h-16 py-1">
